@@ -15,7 +15,5 @@ services:
     container_name: mongo
     restart: always
     image: mongo
-    volumes:
-      - '/home/noah/Schreibtisch/db/:/data/'
     ports:
       - '127.0.0.1:27017:27017'
