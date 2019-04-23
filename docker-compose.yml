@@ -8,8 +8,14 @@ services:
       - '8090:8080'
     links:
       - mongo
+    environment:
+      - DB='mongodb://mongo:27017/test'
+      - PORT=8080
   mongo:
     container_name: mongo
+    restart: always
     image: mongo
+    volumes:
+      - '/home/noah/Schreibtisch/db/:/data/'
     ports:
-      - '27017:27017'
+      - '127.0.0.1:27017:27017'
