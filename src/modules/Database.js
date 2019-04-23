@@ -4,8 +4,6 @@ export default class Database {
     constructor() {
         this.url = process.env.DB || 'mongodb://localhost/test';
         this.db = null;
-
-        this.connect();
     }
 
     connect() {
@@ -14,9 +12,8 @@ export default class Database {
         return new Promise((resolve, reject) => {
             if (this.db) resolve(this.db);
             else {
-                console.log('New connection');
                 mongoose.connect(this.url, { useNewUrlParser: true });
-                console.log('New connection finished');
+                console.log('Started new connection.');
 
                 this.db = mongoose.connection;
 
