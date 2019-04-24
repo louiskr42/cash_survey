@@ -1,5 +1,6 @@
 import Route from './Route';
 import { UserController } from '../controllers';
+import { InputValidation } from '../helpers';
 import App from '../App';
 
 export default class RegisterRoute extends Route {
@@ -22,11 +23,19 @@ export default class RegisterRoute extends Route {
 				return;
             }
 
-            const name = req.body.name;
-            const email = req.body.email;
-            const password = req.body.password;
+            const { name, email, password } = req.body;
 
-            // TODO: input validation!!
+            if (
+                !new InputValidation(name).validName() ||
+                !new InputValidation(email).validEmail() ||
+                !new InputValidation(password).validPassword()
+            ) {
+                res.status(400).json({
+                    success: false,
+                    error: 'invalidParams',
+                });
+                return;
+            }
 
             new UserController().getUser(email)
                 .then(user => {

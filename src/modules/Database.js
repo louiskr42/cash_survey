@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export default class Database {
     constructor() {
-        this.url = process.env.DB || 'mongodb://localhost/test';
+        this.url = 'mongodb://mongo/' + process.env.DB || 'test';
         this.db = null;
     }
 

@@ -1,6 +1,9 @@
 import Route from './Route';
 import { UserController } from '../controllers';
-import { Hash } from '../helpers';
+import {
+    Hash,
+    InputValidation,
+} from '../helpers';
 import App from '../App';
 
 export default class LoginRoute extends Route {
@@ -25,7 +28,16 @@ export default class LoginRoute extends Route {
             const email = req.body.email;
             const password = req.body.password;
 
-            // TODO: input validation!!
+            if (
+                !new InputValidation(email).validEmail() ||
+                !new InputValidation(password).validPassword()
+            ) {
+                res.status(400).json({
+                    success: false,
+                    error: 'invalidParams',
+                });
+                return;
+            }
 
             new UserController().getUser(email)
                 .then(user => {

@@ -29,7 +29,7 @@ export default class Webserver {
 	}
 
 	listen() {
-		this.server = this.app.listen(process.env.PORT || 8080);
+		this.server = this.app.listen(8080);
 	}
 
 	close() {
