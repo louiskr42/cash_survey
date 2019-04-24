@@ -3,21 +3,19 @@ import { UserModel } from '../models';
 import App from '../App';
 
 export default class UserController {
-    static async getUsers() {
-        await App.getInstance().getDatabase().connect();
+    constructor() {
+        App.getInstance().getDatabase().connect();
+    }
 
+    async getUsers() {
         return await UserModel.find();
     }
 
-    static async getUser(email) {
-        await App.getInstance().getDatabase().connect();
-
+    async getUser(email) {
         return await UserModel.findOne({ email: email });
     }
 
-    static async addUser(name, email, password) {
-        await App.getInstance().getDatabase().connect();
-
+    async addUser(name, email, password) {
         const passwordHash = await new Hash(password).gen();
         const user = new UserModel({
             name: name,
@@ -28,9 +26,7 @@ export default class UserController {
         return await user.save();
     }
 
-    static async delUser(email) {
-        await App.getInstance().getDatabase().connect();
-
+    async delUser(email) {
         return await UserModel.findOneAndDelete({ email: email });
     }
 }

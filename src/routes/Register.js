@@ -28,7 +28,7 @@ export default class RegisterRoute extends Route {
 
             // TODO: input validation!!
 
-            UserController.getUser(email)
+            new UserController().getUser(email)
                 .then(user => {
                     if (user) {
                         res.status(400).json({
@@ -38,7 +38,7 @@ export default class RegisterRoute extends Route {
                         return;
                     }
 
-                    UserController.addUser(name, email, password)
+                    new UserController().addUser(name, email, password)
                         .then(() => {
                             App.getInstance().getWebToken().sign({
                                 name: name,

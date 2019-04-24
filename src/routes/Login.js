@@ -27,7 +27,7 @@ export default class LoginRoute extends Route {
 
             // TODO: input validation!!
 
-            UserController.getUser(email)
+            new UserController().getUser(email)
                 .then(user => {
                     if (!user) {
                         res.status(400).json({

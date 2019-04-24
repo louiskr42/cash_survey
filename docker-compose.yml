@@ -11,6 +11,7 @@ services:
     environment:
       - DB='mongodb://mongo:27017/test'
       - PORT=8080
+      - DEBUG=true
   mongo:
     container_name: mongo
     restart: always

@@ -1,12 +1,11 @@
 import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
-import cors from 'cors';
 import morgan from 'morgan';
 import {
     LoginRoute,
+	RegisterRoute,
 } from '../routes';
-import RegisterRoute from '../routes/Register';
 
 export default class Webserver {
 	constructor() {
@@ -16,8 +15,8 @@ export default class Webserver {
 		/* init modules */
 		this.app.use(helmet());
 		this.app.use(compression());
-		this.app.use(cors());
-		this.app.use(morgan('dev'));
+		if (process.env.DEBUG)
+			this.app.use(morgan('dev'));
 		this.app.use(express.json());
 		this.app.use(express.urlencoded({ extended: true }));
 
@@ -30,7 +29,7 @@ export default class Webserver {
 	}
 
 	listen() {
-		this.server = this.app.listen(process.env.PORT || 8080, process.env.HOST || '0.0.0.0');
+		this.server = this.app.listen(process.env.PORT || 8080);
 	}
 
 	close() {
