@@ -4,5 +4,5 @@ export default mongoose.model('User', new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    balance: int,
+    balance: integer,
 }));
